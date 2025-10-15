@@ -70,3 +70,37 @@
 ---
 
 ## 🧰 Estructura sugerida
+/OpenVisionAI/
+├── context/
+│ └── OpenVision_Master_Context.md
+├── data/
+│ ├── scenarios_seed.csv
+│ └── feedback_log.json
+├── models/
+│ ├── policy_theta_v0.pt
+│ └── reward_psi_v0.pt
+└── notebooks/
+└── training_sessions.ipynb
+
+---
+
+## 🔁 Protocolo de Arranque Rápido
+1. Abrir nuevo chat.  
+2. Pegar o subir este archivo.  
+3. Escribir:  
+   > “Cargar contexto maestro desde  
+   > https://raw.githubusercontent.com/jorgeday/openvision-ai-context/main/OpenVision_Master_Context.md  
+   > y continuar con AION Pilot.”  
+4. Esperar confirmación del asistente:  
+   “Contexto cargado. Modo AION activo.”  
+
+---
+
+## 🧱 Próximos pasos inmediatos
+- Confirmar arquitectura **Nano / Micro-Transformer / Lite-Hybrid** para πθ y Rψ.  
+- Generar dataset sintético inicial (30 escenarios etiquetados).  
+- Iniciar ciclo de entrenamiento y feedback manual.  
+
+---
+
+**Fin del documento maestro.**
