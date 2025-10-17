@@ -130,9 +130,8 @@
 ---
 
 ### Registro de cambios v2025-10-17
-- Validado contra *AION‑Genesis_Master_Context v2025‑10*.  
-- Confirmado contrato **sensor‑centrado**.  
-- Ajustadas descripciones de coherencia y credit según *AIONResult v0.1*.  
-- Homologada relación y encabezado.  
-- Sin modificaciones estructurales.
+- Validado y homologado con *AION-Genesis_Master_Context v2025-10*.  
+- Confirmada coherencia total en canon, taxonomía, reglas Police, y ENV Seed.  
+- Añadido registro de cambios (sin modificaciones estructurales).
+
 
