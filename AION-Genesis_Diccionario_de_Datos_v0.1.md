@@ -1,7 +1,7 @@
 # AION-Genesis — Diccionario de Datos v0.1
 **Fecha:** 2025-10-17  
 **Propósito:** Documento técnico de referencia que describe todos los campos, conceptos y variables empleados en el ecosistema cognitivo AION‑Genesis v0.1.  
-**Relación:** Complementa el *AION‑Genesis_Master_Context* y el documento *Cierre Arquitectónico v0.1*.
+**Relación:** Complementa el *AION‑Genesis_Master_Context v2025-10* y el documento *Cierre Arquitectónico v0.1*.
 
 ---
 
@@ -12,10 +12,15 @@
 | **event.id** | Identificador único de evento (UUID). | `9b1d3f3e‑6f7c‑4b8b‑9d3a‑221a9e0c6a33` |
 | **event.source** | Origen del evento (`home_assistant` / `simulator`). | `"home_assistant"` |
 | **event.sensor** | ID completo del sensor que generó el evento. | `"binary_sensor.puerta_entrada"` |
+| **event.device_class** | Tipo de sensor (door, motion, contact, light, etc.). | `"door"` |
+| **event.state** | Estado actual del sensor. | `"on"` |
+| **event.prev_state** | Estado previo (para inferir transición). | `"off"` |
 | **event.zone** | Área física/lógica del evento. | `"perimeter"`, `"living"` |
 | **home_mode** | Estado global del hogar. | `"night"` |
-| **identity_bucket** | Categoría de reconocimiento facial: `unknown`, `known_weak`, `known_strong`. | `"known_strong"` |
 | **timestamp (ts)** | Momento del evento en epoch segundos. | `1760888405.123` |
+
+> **Nota:** El contrato de ingesta es **sensor‑centrado**.  
+> Cualquier información sobre identidad o emoción proviene de sub‑agentes (Watcher, Vocalis) y se refleja en `modalities` dentro del **AIONResult**, no en la ingesta.
 
 ---
 
@@ -124,6 +129,10 @@
 
 ---
 
-### Observaciones finales
-- Todos los términos cumplen el *Invariante #0* (aislamiento total respecto a CAC 2.0).  
-- Este diccionario v0.1 será referencia oficial para desarrollo, validación y documentación.
+### Registro de cambios v2025-10-17
+- Validado contra *AION‑Genesis_Master_Context v2025‑10*.  
+- Confirmado contrato **sensor‑centrado**.  
+- Ajustadas descripciones de coherencia y credit según *AIONResult v0.1*.  
+- Homologada relación y encabezado.  
+- Sin modificaciones estructurales.
+
