@@ -150,3 +150,9 @@ AION_LEARNING_TOPIC=aion/learning/state
 ### Observaciones finales
 - Todas las reglas cumplen el Invariante #0 (aislamiento total respecto a CAC 2.0).  
 - Este diseño queda aprobado como **baseline AION‑Genesis v0.1** para pruebas piloto y expansión futura.
+  
+- ### Registro de cambios v2025-10-17
+- Validado y homologado con *AION-Genesis_Master_Context v2025-10*.  
+- Confirmada coherencia total en canon, taxonomía, reglas Police, y ENV Seed.  
+- Añadido registro de cambios (sin modificaciones estructurales).
+
