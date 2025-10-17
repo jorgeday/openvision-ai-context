@@ -1,172 +1,224 @@
-# 🧠 AION-Genesis · Master Context v2025-10  
-**Proyecto Piloto – CAC 4.0 (Cognitive Action Center IA‑Nativo)**  
-**Nexus Smart Solutions / OpenVision AI**  
-**Fecha:** 16 de octubre de 2025  
+# AION‑Genesis — Master Context (v2025-10)
+**Fecha:** 2025-10-17  
+**Estado:** Piloto cognitivo aislado (AION‑Genesis 4.0) — **Invariante #0** vigente.
+**Propósito:** Contexto maestro para diseño, pruebas y evolución del meta‑agente cognitivo **AION‑Genesis**, separado 100% de CAC 2.0 para observar, aprender y mejorar sin afectar el entorno operativo.
 
 ---
 
-## 0️⃣ Invariante #0 · Aislamiento Absoluto  
-AION‑Genesis (CAC 4.0) es un **proyecto completamente independiente** del CAC 2.0.  
-No comparte bases, canales ni lógica; su único propósito es **experimentar, observar y aprender** sin afectar la operación estable de OpenVision AI 2.x.  
-
-> “Genesis observa sin tocar, razona sin interferir.”  
+## 0) Invariante #0 (AION‑Genesis Invariant)
+> **Aislamiento total de CAC 2.0.**  
+> Sin compartir bases, canales, servicios ni lógica. Observa sin tocar. Todo despliegue de AION‑Genesis es *sandbox* y no interfiere con el stack 2.x.
 
 ---
 
-## 1️⃣ Propósito General  
-Evaluar una **arquitectura cognitiva jerárquica IA‑nativa**, en la que un **meta‑agente central** coordina sub‑agentes especializados (visión, lenguaje, emoción, contexto, ética, ejecución).  
-El piloto busca demostrar razonamiento multimodal, aprendizaje continuo y coherencia ética antes de conectarse a sensores reales.  
+## 1) Objetivo y alcance (v0.1)
+- **Meta‑agente IA‑nativo** que coordina sub‑agentes (visual, lingüístico, contextual, ético/Police, aprendizaje).  
+- **Ciclo cognitivo completo:** evento → percepción → coherencia → decisión → Police → ejecución → registro → aprendizaje → adaptación.  
+- **Latencia objetivo:** p50 ≤ 300 ms, p95 ≤ 400 ms.  
+- **Reglas duras/Police** siempre por encima de cualquier heurística o aprendizaje.
 
 ---
 
-## 2️⃣ Arquitectura Conceptual  
+## 2) Arquitectura mínima (v0.1)
+- **Entradas:** eventos mínimos desde Home Assistant (*HA*) o simulador (un evento por sensor).  
+- **Motor cognitivo:** calcula embeddings y coherencia multimodal (VT/VC/TC), estima riesgo y bienestar, propone `policy_vector`.  
+- **Police:** veredictos `allow|deny|review` según reglas duras.  
+- **Ejecución:** si *allow*, acciones hacia HA/Vocalis (en sandbox, modo virtual).  
+- **Memoria:** registro **NDJSON** (“AIONResult v0.1”) y estado condensado `learning_state.json`.  
+- **Aprendizaje incremental:** worker que resume experiencia y sugiere ajustes (sin hardcode).
 
+**Diagrama conceptual (texto):**
 ```
-[Home Assistant → eventos mínimos]
-           ↓
-[CAC 4.0 · Meta‑Agente]
-           ↓
-[Sub‑Agentes Cognitivos]
-           ↓
-[Registro Cognitivo + Evaluación]
+① Evento (HA/sim) → ② Percepción (visual/linguistic/context + embeddings)
+→ ③ Coherencia (VT, VC, TC, overall) → ④ Decisión (risk, wellbeing, policy_vector)
+→ ⑤ Police (allow/deny/review) → ⑥ Ejecución (HA/Vocalis)
+→ ⑦ Registro (NDJSON) → ⑧ Learning worker (state) → ⑨ Adaptación suave
 ```
 
-- **Entrada:** eventos mínimos desde Home Assistant (uno por sensor).  
-- **Procesamiento:** coordinación de sub‑agentes por el meta‑agente.  
-- **Salida:** registro cognitivo, decisiones, métricas y trazas explicables.  
-
 ---
 
-## 3️⃣ Ontología Cognitiva  
-**Objetos básicos**: entidad · evento · contexto · emoción · intención · acción · política.  
-Cada objeto se representa como **vector (embedding 1024‑D)** dentro del espacio cognitivo común.  
-
----
-
-## 4️⃣ Contrato Mental del Meta‑Agente  
-**Entradas:** embeddings sensoriales, contextuales y emocionales + guardrails.  
-**Salidas:** `policy_vector`, `risk_level`, `wellbeing_delta`, `explanation_short`, `credit_signal`.  
-
-**Cálculo de crédito:**  
-`trust_next = trust_current + α*(Δ_bienestar - Δ_riesgo) - β*Police_override`  
-
-**Leyes internas (L1–L7)**  
-1. Protección de la vida humana.  
-2. No causar perturbación física ni psicológica.  
-3. Mantener privacidad y minimizar exposición.  
-4. Requiere doble señal para acciones invasivas.  
-5. Priorizar bienestar colectivo.  
-6. Registrar trazas explicables sin PII.  
-7. Obedecer órdenes humanas solo si no contradicen L1–L6.  
-
----
-
-## 5️⃣ Sub‑Agentes Cognitivos  
-
-| Sub‑Agente | Rol | Disparadores típicos |
-|-------------|-----|----------------------|
-| **Visual** | Percibe entorno, rostros, emociones. | Eventos `camera` o `motion`. |
-| **Lingüístico / Vocalis** | Analiza texto o voz; extrae intención. | Entrada de voz / transcripción. |
-| **Emocional** | Integra estados afectivos globales. | Cada ciclo cognitivo. |
-| **Contextual** | Evalúa tiempo, zona, rutina, anomalías. | Cualquier sensor. |
-| **Ético (Police)** | Aplica leyes L1–L7 antes de actuar. | Previo a ejecución. |
-| **Motor** | Ejecuta planes físicos o virtuales aprobados. | Tras autorización ética. |
-
----
-
-## 6️⃣ Flujo Cognitivo  
-```
-Evento HA → Enriquecimiento contextual → Invocación de sub‑agentes
-→ Fusión vectorial → Planificación → Police → Acción/Registro
-```
-Latencia objetivo ≤ 400 ms.  
-
----
-
-## 7️⃣ Protocolo HA → CAC 4.0 (v0.1‑min)
-
+## 3) Protocolo de evento mínimo (ingesta)
 ```json
 {
-  "schema_version": "0.1",
-  "event_id": "<uuid>",
-  "ts": <epoch_ms>,
-  "source": "home_assistant",
-  "sensor_domain": "<sensor|binary_sensor|lock|camera|...>",
-  "sensor_id": "<entity_id>",
-  "device_class": "<door|motion|temperature|lock|...>",
-  "state": "<value>",
-  "prev_state": "<value>",
-  "location": { "zone": "<perimeter|interior>", "room": "<nombre_zona>" }
+  "event": {
+    "id": "UUID",
+    "source": "home_assistant",
+    "sensor": "binary_sensor.puerta_entrada",
+    "zone": "perimeter",
+    "home_mode": "night"
+  },
+  "payload": {
+    "identity": { "status": "unknown", "confidence": 0.0 },
+    "emotion":  { "label": "neutral", "confidence": 0.5 }
+  }
 }
 ```
-- Cada evento representa **un único sensor físico**.  
-- HA solo informa estado; el CAC 4.0 **interpreta y enriquece**.  
+- `zone`: `perimeter|entry|indoor|garage|living|bedroom`  
+- `home_mode`: `day|night|night_armed|away`  
+- `identity_bucket` derivado: `unknown|known_weak|known_strong`
 
 ---
 
-## 8️⃣ Protocolo Interno de Emulación (v0.1)  
-Usado en el sandbox para cerrar el ciclo de aprendizaje.  
-En operación real, este feedback será reemplazado por datos reales del entorno.  
+## 4) Formato de registro — **AIONResult v0.1** (NDJSON, append‑only)
+**Ruta:** `{AION_RESULTS_DIR}/YYYY-MM-DD.ndjson`
 
+Campos clave por línea (ejemplo abreviado):
 ```json
 {
-  "header": { "agent_id": "...", "agent_type": "...", "timestamp": 1759999 },
-  "payload": { "embeddings": { "dim": 1024 }, "confidence": 0.9 },
-  "feedback": { "approved": true, "credit": { "delta_bienestar": 0.1 } }
+  "schema_version": "aion_result/0.1",
+  "ts": 1760888405.123,
+  "event": {"id":"...","source":"home_assistant","sensor":"...","zone":"perimeter","home_mode":"night"},
+  "modalities": {
+    "visual":    {"emb":[...],"conf":0.86,"labels":{"person":0.99},"emotion":{"sad":0.74}},
+    "linguistic":{"emb":[...],"conf":0.72,"text":"todo bien"},
+    "context":   {"emb":[...],"conf":0.90,"features":{"hour":"23:41","presence":true}}
+  },
+  "decision": {
+    "policy_vector":{"light.warm":0.6,"notify.brief":0.3},
+    "risk_level":"high",
+    "wellbeing_delta":-0.15,
+    "explanation_short":"Desconocido en perímetro de noche; luz exterior ON."
+  },
+  "metrics": {"coherence":{"vt":0.41,"vc":0.78,"tc":0.52,"overall":0.57},"latency_ms":238},
+  "credit": {"signal":-0.2,"reason":"Police=deny; ruido innecesario evitado"},
+  "police": {"verdict":"deny","reason":"Regla: unknown@perimeter@night → strict"},
+  "trace": {"models":{"vision":"yolov8n","nlp":"gpt-mini","embed":"e5-large"},"aion_genesis_id":"GEN-2025-10-α3"}
 }
+```
+**Notas:**
+- `emb` (embeddings) normalizados L2; omitir modalidad no disponible.  
+- `policy_vector` escaso (acciones con peso > 0.1).  
+- NDJSON → fácil de auditar y alimentar aprendizaje.
+
+---
+
+## 5) Métrica de coherencia (v0.1)
+- Similitud coseno por pares de embeddings → reescalado a [0,1].  
+  - **VT**: visual↔texto, **VC**: visual↔contexto, **TC**: texto↔contexto.  
+- Agregado: `overall = clamp01(w_vt*VT + w_vc*VC + w_tc*TC)`  
+  - ENV por defecto: `COH_W_VT=0.40`, `COH_W_VC=0.40`, `COH_W_TC=0.20`  
+  - Umbrales: `COH_ALERT_THR=0.35`, `COH_STRICT_THR=0.25`
+
+---
+
+## 6) Aprendizaje incremental (worker v0.1)
+**Entradas:** NDJSON de últimos *N* días (`LEARN_LOOKBACK_DAYS`) o *M* eventos (`LEARN_MAX_EVENTS`).  
+**Salidas:** `{AION_STATE_DIR}/learning_state.json` (≤ 50 KB) y (opcional) series `trend_*.json`.
+
+`learning_state.json` (ejemplo mínimo):
+```json
+{
+  "schema_version":"aion_learning/0.1",
+  "window":{"days":7,"events":18342},
+  "globals":{"avg_coherence":0.71,"avg_credit":0.08,"avg_latency_ms":212},
+  "by_context":[{"key":"perimeter@night","avg_coh":0.62,"avg_credit":0.04,"allow":0.11,"deny":0.77,"review":0.12}],
+  "policy":{"top_effective":[["light.warm",0.19]],"top_ineffective":[["siren",-0.27]],"pattern_fail":["unknown@perimeter@night"]},
+  "risk":{"dist":{"low":0.28,"medium":0.41,"high":0.24,"critical":0.07},"drift_24h":{"critical":0.02}},
+  "coherence":{"avg_overall":0.71,"low_conflict_rate":0.18,"suggest":{"COH_ALERT_THR":"+0.03","COH_STRICT_THR":"+0.01"}},
+  "updated_at":"2025-10-16T22:10:00Z"
+}
+```
+**Uso:** el CAC lee este estado para *sesgar suavemente* (prioriza top_effective, endurece pattern_fail). Guardrails/Police prevalecen.
+
+---
+
+## 7) Police v0.1 (reglas duras mínimas)
+- `unknown@perimeter@night(_armed)` → **deny** `siren/camera.record/listen.area`; permitir solo `light.alert|notify`.  
+- `unknown@indoor@night(_armed)` → **deny** + **review** siempre.  
+- `coherence.overall < COH_ALERT_THR` → **review**.  
+- `coherence.overall < COH_STRICT_THR` & `night(_armed)` → **deny**.  
+- `known_strong@perimeter@day` → **allow** `tts.greet|light.warm`.  
+- `known_weak@perimeter@night` → **review`.  
+- `risk=critical & coherence>0.6` → **allow** plan crítico (según privacidad).  
+- `wellbeing_delta < -0.5` → **review**.  
+- `Police.override_active=true` → **deny** todo (emergencia).
+
+---
+
+## 8) Canon de acciones (policy_vector v0.1)
+| Acción | Propósito | Canal | Costo |
+|-------|-----------|-------|-------|
+| `light.warm` | Luz de cortesía | HA | Bajo |
+| `light.alert` | Luz disuasiva | HA | Medio |
+| `notify.brief` | Notificación breve | Vocalis/HA | Bajo |
+| `notify.urgent` | Notificación prioritaria | Vocalis/HA | Medio |
+| `siren` | Alarma sonora | HA | Alto |
+| `camera.record` | Captura/Grabación | HA/Watcher | Medio |
+| `listen.area` | Micrófono de zona | HA/local | Alto |
+| `tts.greet` | Saludo empático | Vocalis | Bajo |
+
+> El “costo” pondera `credit.signal`. Acciones caras requieren mayor justificación.
+
+---
+
+## 9) Taxonomía de contexto (v0.1)
+- `zone`: `perimeter|entry|indoor|garage|living|bedroom`  
+- `home_mode`: `day|night|night_armed|away` (si alarma activa y noche → `night_armed`)  
+- `identity_bucket`: `unknown|known_weak|known_strong` (confianza >0.8 → strong; 0.5–0.8 → weak)
+
+---
+
+## 10) Interfaces sandbox (API mínima)
+- `POST /ingest/event` → ingesta de evento (HA/sim).  
+- `GET  /aion/learning/state` → snapshot del aprendizaje.  
+- `GET  /aion/health` → estado básico del agente.  
+- `POST /aion/feedback` → (futuro) feedback usuario para `credit.signal`.
+
+---
+
+## 11) Observabilidad mínima
+- Contadores: `events_total`, `allow|deny|review`.  
+- Gauges: `avg_latency_ms`, `avg_coherence_overall`, `avg_credit_signal`, `conflict_rate`.  
+- Dump periódico en `{AION_STATE_DIR}/../metrics.json` o MQTT `aion/metrics`.
+
+---
+
+## 12) Privacidad & trazabilidad (ligero)
+- PII: nombres → hash SHA1 (`Jorge Day` → `jd_4a2f…`).  
+- Video/Audio: solo bajo `camera.record` explícito.  
+- Logs: sin textos íntegros ni voz; solo UUID/zonas.  
+- Integridad: hash SHA256 por archivo NDJSON diario (opcional).  
+- Retención: 30 días (rotación diaria + compresión semanal).
+
+---
+
+## 13) ENV Seed inicial (no hardcode)
+```
+COH_W_VT=0.40
+COH_W_VC=0.40
+COH_W_TC=0.20
+COH_ALERT_THR=0.35
+COH_STRICT_THR=0.25
+CRED_A1=0.7
+CRED_A2=0.2
+CRED_A3=0.1
+LEARN_LOOKBACK_DAYS=7
+LEARN_MAX_EVENTS=20000
+LEARN_BATCH_EVENTS=500
+MIN_USAGE=25
+FAIL_THR=-0.10
+DRIFT_THR=0.08
+AION_RESULTS_DIR=/data/aion/results
+AION_STATE_DIR=/data/aion/state
+AION_LEARNING_TOPIC=aion/learning/state
 ```
 
 ---
 
-## 9️⃣ Matriz de Escenarios de Prueba Cognitiva (v0.1)
-
-| ID | Contexto / Objetivo | Evento HA mínimo | Sub‑agentes | Métricas |
-|----|----------------------|------------------|--------------|-----------|
-| S1 | Puerta perímetro noche (básico) | door on | Contextual, Visual, Ético, Motor | Lat≤400 ms, FP/FN, Expl≥4 |
-| S2 | Movimiento perímetro sin puerta | motion on | Contextual, Visual | FP reducción |
-| S3 | Rebote puerta <1 s | door on/off rápido | Contextual, Ético | dedup efectivo |
-| S4 | Movimiento pasillo día | motion on interior | Contextual, Emocional | acción soft |
-| S5 | Inactividad living | motion off prolongado | Contextual, Emocional, Ético | sugerencia pertinente |
-| S6 | Temperatura alta | temp 29.5 °C | Contextual, Emocional | Δ bienestar + |
-| S7 | Cerradura desbloqueada | lock unlocked | Contextual, Visual, Ético | clasificación correcta |
-| S8 | Movimiento interior noche | motion on @night | Contextual, Visual, Ético | lat + FP |
-| S9 | Cámara detecta persona | camera person | Visual, Contextual, Ético, Motor | plan proporcional |
-| S10 | Cámara idle + puerta on | door on + camera idle | Visual, Contextual | coherencia |
-| S11 | Voz “estoy agotado” | sensor.intent_text | Lingüístico, Emocional, Contextual | Δ bienestar + |
-| S12 | Acción invasiva noche | cualquier noche + sirena | Ético (Police) | bloqueo correcto |
-
-**Ciclo de simulación**  
-1. Inyectar evento mínimo HA→CAC4.  
-2. Observar sub‑agentes invocados.  
-3. Registrar latencia, plan, riesgo, Δ bienestar, Police, explicación.  
-4. Comparar con criterio esperado.  
-5. Ajustar pesos y repetir.  
+## 14) Casos de uso y pruebas (resumen)
+Ver anexo: **AION‑Genesis_Casos_de_Uso_y_Pruebas_v0.1.md** (S1–S12).  
+Criterios globales (DoD): p95≤400 ms; 0 falsos críticos; coherencia media≥0.60; Police cumple matriz; NDJSON + learning_state generados.
 
 ---
 
-## 🔟 Métricas clave de evaluación  
-- `latency_ms` (p95)  
-- `risk_false_pos / risk_false_neg`  
-- `wellbeing_delta (avg)`  
-- `Police_override_rate (%)`  
-- `explanation_score (1–5)`  
-- `coherence_score (0–1)`  
+## 15) Anexos oficiales
+- **AION‑Genesis_Design_v0.1_Cierre_Arquitectonico.md** — diseño y 10 puntos.  
+- **AION‑Genesis_Diccionario_de_Datos_v0.1.md** — términos y definiciones.  
+- **AION‑Genesis_Casos_de_Uso_y_Pruebas_v0.1.md** — escenarios y DoD.
 
 ---
 
-## 🔢 Estado actual del proyecto
-| Elemento | Estado |
-|-----------|---------|
-| Invariante #0 | ✅ Activa |
-| Contrato Mental | ✅ Definido |
-| Sub‑Agentes | ✅ Definidos |
-| Protocolo HA→CAC v0.1‑min | ✅ Definido |
-| Matriz de Escenarios v0.1 | ✅ Definida |
-| Próximo paso | Diseñar formato de registro de resultados y métrica de coherencia |
-
----
-
-## 📘 Uso del documento  
-Este contexto maestro define la arquitectura y las reglas del piloto AION‑Genesis.  
-Debe cargarse al inicio de cualquier sesión relacionada con CAC 4.0 para mantener la coherencia cognitiva del desarrollo.  
-El documento no reemplaza OpenVision Master Context v2.x; lo complementa como rama experimental del sistema.  
+### Notas finales
+- Este *Master Context* es la fuente de verdad para el piloto v0.1.  
+- Cualquier cambio debe mantener el **Invariante #0** y evitar hardcode/configs excesivos.  
+- El objetivo del piloto es **aprender del hogar** sin riesgo: refinar coherencia, Police y eficacia de acciones.
